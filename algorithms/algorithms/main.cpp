@@ -4,21 +4,24 @@
 
 using namespace std;
 
-struct node {
+struct treeNode {
   int data;
-  node* left;
-  node* right;
+  treeNode* left = NULL;
+  treeNode* right = NULL;
 };
 
-node* newNode (int data) {
-  node* n = new node;
+struct listNode {
+  int data;
+  listNode* next = NULL;
+};
+
+treeNode* newNode (int data) {
+  treeNode* n = new treeNode;
   n->data = data;
-  n->left = NULL;
-  n->right = NULL;
   return n;
 }
 
-void printTreeLayers (node* root) {
+void printTreeLayers (treeNode* root) {
   cout << root->data;
   if (root->right != NULL || root->left != NULL) {
     cout << endl;
@@ -32,7 +35,7 @@ void printTreeLayers (node* root) {
   }
 }
 
-void deleteTree (node* root) {
+void deleteTree (treeNode* root) {
   if (root->left != NULL) {
     deleteTree(root->left);
   }
@@ -40,6 +43,28 @@ void deleteTree (node* root) {
     deleteTree(root->right);
   }
   delete root;
+}
+
+void printLinkedList (listNode* node) {
+  cout << node->data;
+  while (node->next != NULL) {
+    node = node->next;
+    cout << " " << node->data;
+  }
+}
+
+void deleteLinkedList (listNode* nodePtr) {
+  listNode* next;
+  if (nodePtr->next == NULL) {
+    delete nodePtr;
+    return;
+  }
+  while (nodePtr->next != NULL) {
+    next = nodePtr->next;
+    delete nodePtr;
+    nodePtr = next;
+  }
+  delete nodePtr;
 }
 
 void printArr (float* arr, int len) {
@@ -147,7 +172,19 @@ void insertionSortP (int* a, int len) {
 }
 
 int main () {
-  node* root = newNode(123);
+  listNode* first = new listNode;
+  first->data = 111;
+  listNode* second = new listNode;
+  second->data = 222;
+  listNode* third = new listNode;
+  third->data = 333;
+  first->next = second;
+  second->next = third;
+  printLinkedList(first);
+  deleteLinkedList(first);
+
+
+  treeNode* root = newNode(123);
   root->left = newNode(111);
   root->right = newNode(333);
   root->left->left = newNode(555);

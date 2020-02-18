@@ -161,13 +161,13 @@ void sortArr (int* arr, int len) {
 void insertionSortP (int* a, int len) {
   int i, j, k;
   for (i = 0; i < len - 1; i++) {
-    j = i + 1;
-    k = a[j];
-    while (j > 0 && k < a[j - 1]) {
-      a[j] = a[j - 1];
+    k = a[i + 1];
+    j = i;
+    while (j >= 0 && a[j] > k) {
+      a[j + 1] = a[j];
       j--;
     }
-    a[j] = k;
+    a[j + 1] = k;
   }
 }
 
